@@ -4,15 +4,18 @@ from rest_framework.response import Response
 from .serializers import TasksSerializers
 from .models import Tasks
 from rest_framework import status
+from .filters import TaskFilter
+from rest_framework.pagination import PageNumberPagination
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 
 @api_view(['GET','POST'])
 def getTasks(request):
     if request.method == 'GET':
-        tasks = Tasks.objects.all()
-        result = TasksSerializers(tasks,many=True)
-        return Response(result.data)
+         tasks = Tasks.objects.all()
+         serializer = TasksSerializers(tasks,many=True)  
+         return Response(serializer.data)
     elif request.method == 'POST':
         task = TasksSerializers(data=request.data)
         if task.is_valid():
