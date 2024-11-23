@@ -1,7 +1,12 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
+
+def upload_to(instance , filename):
+    return '/media/{filename}'.format(filename=filename)
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
 class FileModel(models.Model):
-    path = models.CharField(max_length=200)
+    name = models.CharField(max_length=255,default="Untitled")
+    file = models.FileField(upload_to='media/', default='/media/image.png')
