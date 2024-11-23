@@ -12,5 +12,6 @@ urlpatterns = [
     path('categories/<int:id>' , views.getbyId),
     path('upload/', views.upload_file, name='upload-file'),
     path('files/', views.get_files, name='get-files'),
-    path('api/auth/', include('accounts.urls')),
+    path('tasks/' , include('tasks.urls')),
+    path('auth/' , include('accounts.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
